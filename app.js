@@ -34,8 +34,25 @@ app.get('/about', (req, res) => {
   res.render('about', { title: 'About' });
 });
 
-app.get('/stats/:playerID', (req, res) => {
-  res.render('stats', { title: 'Player Stats' });
+app.get('/stats/:pid', (req, res) => {
+  var player = req.params.pid;
+  const url = 'https://apex-legends.p.rapidapi.com/stats/PS4/' + player;
+  var options = {
+    method: 'GET',
+    url: url, //Needs to be edited to /PS4/entered ID
+    headers: {
+      'x-rapidapi-host': 'apex-legends.p.rapidapi.com',
+      'x-rapidapi-key': '3db43a4741msh0b1aa85c131e75fp173cebjsndb70a59f20c1'
+    }
+  };
+
+  axios.request(options).then(function (response) {
+    var player = response;
+  }).catch(function (error) {
+    console.error(error);
+  });
+
+  res.render('stats', {title: 'Stats', player});
 });
 
 // blog routes
