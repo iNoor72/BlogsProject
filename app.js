@@ -34,6 +34,10 @@ app.get('/about', (req, res) => {
   res.render('about', { title: 'About' });
 });
 
+app.get('/stats/:playerID', (req, res) => {
+  res.render('stats', { title: 'Player Stats' });
+});
+
 // blog routes
 app.use('/blogs', blogRoutes);
 
