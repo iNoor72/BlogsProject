@@ -2,6 +2,7 @@ const express = require('express');
 //const morgan = require('morgan');
 const mongoose = require('mongoose');
 const blogRoutes = require('./routes/blogRoutes');
+var axios = require("axios").default;
 
 // express app
 const app = express();
@@ -34,25 +35,41 @@ app.get('/about', (req, res) => {
   res.render('about', { title: 'About' });
 });
 
-app.get('/stats/:pid', (req, res) => {
-  var player = req.params.pid;
-  const url = 'https://apex-legends.p.rapidapi.com/stats/PS4/' + player;
-  var options = {
+// app.get('/stats/:pid', (req, res) => {
+//   var player = req.params.pid;
+//   const url = 'https://apex-legends.p.rapidapi.com/stats/PS4/' + player;
+//   var options = {
+//     method: 'GET',
+//     url: url, //Needs to be edited to /PS4/entered ID
+//     headers: {
+//       'x-rapidapi-host': 'apex-legends.p.rapidapi.com',
+//       'x-rapidapi-key': '3db43a4741msh0b1aa85c131e75fp173cebjsndb70a59f20c1'
+//     }
+//   };
+
+//   axios.request(options).then(function (response) {
+//     var playerData = response.total.kills.value;
+//     console.log(playerData);
+//   }).catch(function (error) {
+//     console.error(error);
+//   });
+
+//   res.render('stats', {title: 'Stats', playerData});
+// });
+
+app.get('/github/:id', (req,res) => {
+    var options = {
     method: 'GET',
-    url: url, //Needs to be edited to /PS4/entered ID
-    headers: {
-      'x-rapidapi-host': 'apex-legends.p.rapidapi.com',
-      'x-rapidapi-key': '3db43a4741msh0b1aa85c131e75fp173cebjsndb70a59f20c1'
-    }
+    url: 'https://api.github.com/users/'+req.params.id,
   };
 
   axios.request(options).then(function (response) {
-    var player = response;
+    var user = (response.data);
   }).catch(function (error) {
     console.error(error);
   });
 
-  res.render('stats', {title: 'Stats', player});
+  res.render('stats', {title: 'Github', user});
 });
 
 // blog routes

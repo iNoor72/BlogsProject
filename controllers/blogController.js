@@ -49,30 +49,26 @@ const blog_delete = (req, res) => {
     });
 }
 
-const player_stats = (req,res) => {
-  const id = req.params.pid;
+// const github_repos = (req,res) => {
+//   const userid = req.params.id;
 
-var options = {
-  method: 'GET',
-  url: 'https://apex-legends.p.rapidapi.com/stats/PS4/i__Noor', //Needs to be edited to /PS4/entered ID
-  headers: {
-    'x-rapidapi-host': 'apex-legends.p.rapidapi.com',
-    'x-rapidapi-key': '3db43a4741msh0b1aa85c131e75fp173cebjsndb70a59f20c1'
-  }
-};
+// var options = {
+//   method: 'GET',
+//   url: 'https://api.github.com/users/' + userid +'/repos',
+// };
 
-axios.request(options).then(function (response) {
-  var player = response;
-}).catch(function (error) {
-	console.error(error);
-});
-}
+// axios.request(options).then(function (response) {
+//   var userRepos = response;
+//   console.log(userRepos);
+// }).catch(function (error) {
+// 	console.error(error);
+// });
+// }
 
 module.exports = {
   blog_index, 
   blog_details, 
   blog_create_get, 
   blog_create_post, 
-  blog_delete,
-  player_stats
+  blog_delete
 }
