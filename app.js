@@ -53,14 +53,15 @@ app.get('/github/:id', (req,res,next) => {
   };
 
   axios.request(options).then(function (response) {
-    user = response.data;
+    let data;
+    data = response.data;
+    res.render('stats', {title: 'Github', user: data});
     console.log(user);
-    
   }).catch(function (error) {
     console.error(error);
   });
 
-  res.render('stats', {title: 'Github'});
+  
   next();
 });
 
