@@ -35,27 +35,20 @@ app.get('/about', (req, res) => {
   res.render('about', { title: 'About' });
 });
 
-// app.get('/stats/:pid', (req, res) => {
-//   var player = req.params.pid;
-//   const url = 'https://apex-legends.p.rapidapi.com/stats/PS4/' + player;
-//   var options = {
-//     method: 'GET',
-//     url: url, //Needs to be edited to /PS4/entered ID
-//     headers: {
-//       'x-rapidapi-host': 'apex-legends.p.rapidapi.com',
-//       'x-rapidapi-key': '3db43a4741msh0b1aa85c131e75fp173cebjsndb70a59f20c1'
-//     }
-//   };
+const middleware = function(req,res,next)  {
 
-//   axios.request(options).then(function (response) {
-//     var playerData = response.total.kills.value;
-//     console.log(playerData);
-//   }).catch(function (error) {
-//     console.error(error);
-//   });
+  //parse data
 
-//   res.render('stats', {title: 'Stats', playerData});
-// });
+//save to db
+  const user = new UserInfo(req.body);
+  user.save()
+    .then(result => {
+      res.redirect('/');
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
 
 app.get('/github/:id', (req,res) => {
     var options = {
@@ -64,13 +57,19 @@ app.get('/github/:id', (req,res) => {
   };
 
   axios.request(options).then(function (response) {
-    var user = (response.data);
+    user = response.data;
+    console.log(user);
+    
   }).catch(function (error) {
     console.error(error);
   });
 
-  res.render('stats', {title: 'Github', user});
+  res.render('stats', {title: 'Github'}, user);
 });
+
+//app.use(middleware);
+
+//Add midlleware here to parse data and save to db.
 
 // blog routes
 app.use('/blogs', blogRoutes);
