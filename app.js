@@ -50,7 +50,7 @@ const middleware = function(req,res,next)  {
     });
 };
 
-app.get('/github/:id', (req,res) => {
+app.get('/github/:id', (req,res,next) => {
     var options = {
     method: 'GET',
     url: 'https://api.github.com/users/'+req.params.id,
@@ -65,7 +65,12 @@ app.get('/github/:id', (req,res) => {
   });
 
   res.render('stats', {title: 'Github'}, user);
+  next();
 });
+
+app.use(
+console.log("Hello from the middleware!")
+);
 
 //app.use(middleware);
 
