@@ -42,40 +42,21 @@ app.get('/about', (req, res) => {
   res.render('about', { title: 'About' });
 });
 
-const middleware = function()  {
-  console.log("Hello from middleware!")
-};
-
 app.get('/github/:id', (req,res,next) => {
     var options = {
     method: 'GET',
-    url: 'https://api.github.com/users/'+req.params.id,
+    url: 'https://api.github.com/users/'+req.params.id, 
   };
 
   axios.request(options).then(function (response) {
     let data;
     data = response.data;
-    res.render('stats', {title: 'Github', user: data});
-    console.log(user);
+    console.log(data);
   }).catch(function (error) {
     console.error(error);
   });
-
-  
-  next();
+  res.render('stats', {title: 'Github'});
 });
-
-
-
-// app.use((req,res,next) => {
-// console.log("Hello from the middleware!")
-// next();
-// }
-// );
-
-//app.use(middleware);
-
-//Add midlleware here to parse data and save to db.
 
 // blog routes
 app.use('/blogs', blogRoutes);
