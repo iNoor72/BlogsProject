@@ -60,7 +60,7 @@ app.get('/github/:id', (req,res,next) => {
     console.error(error);
   });
 
-  res.render('stats', {title: 'Github'}, user);
+  res.render('stats', {title: 'Github'});
   next();
 });
 
