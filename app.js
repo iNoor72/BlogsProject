@@ -27,27 +27,23 @@ app.use((req, res, next) => {
 });
 
 // routes
-app.get('/', (req, res) => {
+app.get('/', (req, res, next) => {
   res.redirect('/blogs');
+  next()
+});
+
+// Middleware example
+app.use((res,req,next) => {
+console.log("Hello from middleare!");
+next();
 });
 
 app.get('/about', (req, res) => {
   res.render('about', { title: 'About' });
 });
 
-const middleware = function(req,res,next)  {
-
-  //parse data
-
-//save to db
-  const user = new UserInfo(req.body);
-  user.save()
-    .then(result => {
-      res.redirect('/');
-    })
-    .catch(err => {
-      console.log(err);
-    });
+const middleware = function()  {
+  console.log("Hello from middleware!")
 };
 
 app.get('/github/:id', (req,res,next) => {
@@ -68,9 +64,13 @@ app.get('/github/:id', (req,res,next) => {
   next();
 });
 
-app.use(
-console.log("Hello from the middleware!")
-);
+
+
+// app.use((req,res,next) => {
+// console.log("Hello from the middleware!")
+// next();
+// }
+// );
 
 //app.use(middleware);
 
