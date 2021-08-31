@@ -51,11 +51,11 @@ app.get('/github/:id', (req,res,next) => {
   axios.request(options).then(function (response) {
     let data;
     data = response.data;
-    console.log(data);
+    res.render('stats', {title: 'Github', user: data});
   }).catch(function (error) {
     console.error(error);
   });
-  res.render('stats', {title: 'Github'});
+  
 });
 
 // blog routes
